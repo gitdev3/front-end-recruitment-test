@@ -74,4 +74,84 @@
   }
 
   // Your custom JavaScript goes here
+  const baconButton = document.getElementById('bacon-button');
+  const form = document.getElementById('form-checkout');
+
+  baconButton.addEventListener('click', function() {
+    let img = document.getElementsByClassName('bacon')[0];
+    let newImg = img.cloneNode(true);
+    img.parentNode.appendChild(newImg);
+  });
+
+  form.onsubmit = function(e){
+    e.preventDefault();
+    simpleValidation();
+  };
+
+  function simpleValidation() {
+    const postcodeRegexp = /[0-9]{5}/;
+    const phoneRegexp = /^[(]{0,1}[0-9]{3}[)]{0,1}[\s]{0,1}[0-9]{3}[-]{0,1}[0-9]{2}[-]{0,1}[0-9]{2}$/;
+    const ccardNumberRegexp = /^[0-9]{4}[-\s]{0,1}[0-9]{4}[-\s]{0,1}[0-9]{4}[-\s]{0,1}[0-9]{4}$/;
+    const ccardSecurityRegexp = /^[0-9]{3}$/;
+    const ccardExpDateRegexp = /^[0-9]{2}[/]{1}[0-9]{2}$/;
+
+    let postcode = document.getElementById('postalcode');
+    let phone = document.getElementById('phone');
+    let ccard = document.getElementById('ccard');
+    let ccardSecurity = document.getElementById('scode');
+    let ccardExpDate = document.getElementById('expdate');
+
+    let error = false;
+
+    if(!postcode.value.match(postcodeRegexp)) {
+      postcode.classList.add('error');
+      error = true;
+    } else {
+      if (postcode.classList.contains('error')) {
+        postcode.classList.remove('error');
+      }
+    }
+
+    if(!phone.value.match(phoneRegexp)) {
+      phone.classList.add('error');
+      error = true;
+    } else {
+      if (phone.classList.contains('error')) {
+        phone.classList.remove('error');
+      }
+    }
+
+    if(!ccard.value.match(ccardNumberRegexp)) {
+      ccard.classList.add('error');
+      error = true;
+    } else {
+      if (ccard.classList.contains('error')) {
+        ccard.classList.remove('error');
+      }
+    }
+
+    if(!ccardSecurity.value.match(ccardSecurityRegexp)) {
+      ccardSecurity.classList.add('error');
+      error = true;
+    } else {
+      if (ccardSecurity.classList.contains('error')) {
+        ccardSecurity.classList.remove('error');
+      }
+    }
+
+    if(!ccardExpDate.value.match(ccardExpDateRegexp)) {
+      ccardExpDate.classList.add('error');
+      error = true;
+    } else {
+      if (ccardExpDate.classList.contains('error')) {
+        ccardExpDate.classList.remove('error');
+      }
+    }
+
+    if(error) {
+      alert('Błędnie wypełniony formularz!');
+    } else {
+        alert('Dziękujemy za zakupy!');
+    }
+  }
 })();
